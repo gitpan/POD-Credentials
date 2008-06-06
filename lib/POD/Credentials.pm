@@ -3,7 +3,7 @@ package POD::Credentials;
 use warnings;
 use strict;
 use English qw( -no_match_vars);
-use version; our $VERSION =  '0.02';
+use version; our $VERSION =  '0.03';
 
 =head1 NAME
 
@@ -11,7 +11,7 @@ POD::Credentials - POD credentials OO wrapper (see also, author, license, copyri
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =head1 DESCRIPTION
 

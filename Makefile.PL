@@ -1,22 +1,22 @@
-use strict;
-use warnings;
-use ExtUtils::MakeMaker;
+use inc::Module::Install;
 
-WriteMakefile(
-    NAME                => 'POD::Credentials',
-    AUTHOR              => 'Maxim Grigoriev <maxim@fnal.gov>',
-    VERSION_FROM        => 'lib/POD/Credentials.pm',
-    PL_FILES            => {},
-    PREREQ_PM => {
-        'Test::More' => 0,
-	'Test::Harness' => 0,
-        'File::Basename' => 0,
-	'POSIX' => 0, 
-        'Class::Accessor::Fast'=> 0,
-	'Class::Fields'=> 0,
-        'Test::Pod' => '1.22',
-        'Test::Pod::Coverage' => '1.08',
-    },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'POD-Credentials-*' },
-);
+name             'POD-Credentials';
+author_from      'lib/POD/Credentials.pm';
+license          'Fermitools';
+version          '0.02';
+perl_version     '5.0061';
+all_from 	 'lib/';
+
+requires        'Test::More' => 0; 
+requires 	'POSIX' => 0; 
+requires 	'version' => 0;
+requires        'fields' => 0; 
+
+requires         'Class::Accessor::Fast'=> 0;
+requires 	 'Class::Fields'=> 0;
+ 
+ 
+no_index directory  => 't';
+
+auto_install;
+WriteAll;

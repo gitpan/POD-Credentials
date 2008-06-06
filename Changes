@@ -1,5 +1,8 @@
 Revision history for POD-Credentials
 
+0.03    06/06/2008
+        updated Makefile.PL to include proper reqs and removed pod tests
+
 0.02    06/06/2008
         fixed whitespace noise
 

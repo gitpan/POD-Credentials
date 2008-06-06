@@ -6,6 +6,10 @@ POD-Credentials
   Most common use is for automated code generation when credentials footer
   is needed. 
 
+VERSION
+
+0.02
+
 INSTALLATION
 
 To install this module, run the following commands:

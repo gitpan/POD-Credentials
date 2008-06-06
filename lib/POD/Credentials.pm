@@ -3,77 +3,74 @@ package POD::Credentials;
 use warnings;
 use strict;
 use English qw( -no_match_vars);
-use version; our $VERSION = qv('0.01');
+use version; our $VERSION =  '0.02';
 
 =head1 NAME
 
-POD::Credentials -    POD credentials OO wrapper ( see also, author, license, copyright ) 
+POD::Credentials - POD credentials OO wrapper (see also, author, license, copyright) 
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =head1 DESCRIPTION
-    
-    instance of this class is capable of setting up POD credentials, as 
-     C<see also, author, license, copyright> and returning  it  as string
-    
-    
+
+instance of this class is capable of setting up POD credentials, as 
+C<see also, author, license, copyright> and returning  it  as string
+
 =head1 SYNOPSIS
 
-       use POD::Credentials;
-       my $cred = POD::Credentials->new({
-                                         author => 'Joe Doe', 
-			                 license => <license text, default is Perl artistic>,
-                                         copyright => <some text, default is copyright by author name with current year'>
-			               });
-       print $cred->asString();
-       ## it will automatically set B<SEE ALSO> as the link to the name of the caller's package if defined and not C<main>
-        
+    use POD::Credentials;
+    my $cred = POD::Credentials->new({
+ 				      author => 'Joe Doe', 
+     				      license => <license text, default is Perl artistic>,
+ 				      copyright => <some text, default is copyright 
+     						    by author name with current year'>
+     				    });
+    print $cred->asString();
+
+## it will automatically set B<SEE ALSO> as the link to the name of the caller's package if defined and not C<main>
 
 =head1 METHODS 
-   
-   accessors/mutators are provided by  L<Class::Accessor::Fast> for each public field
+
+accessors/mutators are provided by  L<Class::Accessor::Fast> for each public field
 
 =head2 new()
 
-    constructor, accepts single parameter - reference to hash where keys from the list:
-    C<author copyright license year see_also>
+constructor, accepts single parameter - reference to hash where keys from the list:
+C<author copyright license year see_also>
 
 =head2 author()
-   
-    accessor/mutator  for the C<AUTHOR> pod element
+
+accessor/mutator  for the C<AUTHOR> pod element
 
 =head2 copyright()
-  
-    accessor/mutator  for the C<COPYRIGHT> pod element
 
-=head2  license(),
+accessor/mutator  for the C<COPYRIGHT> pod element
 
-    accessor/mutator  for the C<LICENSE> pod element
-   
-=head2 year(),
- 
-    accessor/mutator  for the year used in C<COPYRIGHT>
- 
+=head2  license()
+
+accessor/mutator  for the C<LICENSE> pod element
+
+=head2 year()
+
+accessor/mutator  for the year used in C<COPYRIGHT>
+
 =head2 see_also()
 
-   accessor/mutator  for the C<SEE ALSO> pod element
- 
+accessor/mutator  for the C<SEE ALSO> pod element
+
 =head2  end_module()
 
-   if set then module will be finished with:
-   
-=begin text
+if set then module will be finished with:
+
 
     __END__
   
     1;
 
-=end text
+and then credentials pod will be added
 
-   and then credentials pod will be added
-   
 =cut
 
 use POSIX qw(strftime);
@@ -108,24 +105,23 @@ sub new {
 sub asString {
     my ($self) = @_;
     my $string =  $self->end_module?"\n\n1;\n\n__END__\n\n":"\n";
-     
-    if($self->see_also) {
-        $string .= "\n=head1  SEE ALSO\n\n  " .  $self->see_also . "\n";
-    } elsif(caller !~ /^main/) {
-        "\n=head1 SEE ALSO\n\n    This module was automatically built by L<" . caller() . ">\n";
+    my($see_also,  $author, $copyright, $license) = ($self->see_also, $self->author,$self->copyright,$self->license); 
+    map {  s/^\s+// if defined $_ }($see_also,  $author, $copyright, $license); 
+    if($see_also) {
+        $string .= "\n=head1  SEE ALSO\n\n$see_also\n";
     }  
-    if($self->author) {
-        $string .= "\n=head1 AUTHOR\n\n  " .  $self->author . "\n";
+    if($author) {
+        $string .= "\n=head1 AUTHOR\n\n$author\n";
     }
-    if($self->copyright) {
-        $string .= "\n=head1 COPYRIGHT\n\n" .  $self->copyright . "\n";
-    } elsif($self->author) {
-        $string .= "\n=head1 COPYRIGHT\n\n  Copyright (c) " . $self->year  . ", " . $self->author  . ". All rights reserved.\n";
+    if($copyright) {
+        $string .= "\n=head1 COPYRIGHT\n\n$copyright\n";
+    } elsif($author) {
+        $string .= "\n=head1 COPYRIGHT\n\nCopyright (c) " . $self->year  . ", $author. All rights reserved.\n";
     }
-    if($self->license) {
-        $string .= "\n=head1 LICENSE\n\n" .  $self->license . "\n";
+    if($license) {
+        $string .= "\n=head1 LICENSE\n\n$license\n";
     } else {
-        $string .= "\n=head1 LICENSE\n\n This program is free software.\n You can redistribute it and/or modify it under the same terms as Perl itself.\n";
+        $string .= "\n=head1 LICENSE\n\nThis program is free software.\nYou can redistribute it and/or modify it under the same terms as Perl itself.\n";
     }
     $string .= "\n=cut\n\n";
     return $string;
@@ -133,7 +129,7 @@ sub asString {
 
 =head1 AUTHOR
 
-Maxim Grigoriev, C<< <maxim at fnal.gov> >>
+Maxim Grigoriev,  maxim_at_fnal_gov
 
 =head1 BUGS
 
@@ -152,7 +148,7 @@ You can find documentation for this module with the perldoc command.
 
 You can also look for information at:
 
-=over 4
+=over
 
 =item * RT: CPAN's request tracker
 
@@ -171,10 +167,6 @@ L<http://cpanratings.perl.org/d/POD-Credentials>
 L<http://search.cpan.org/dist/POD-Credentials>
 
 =back
-
-
-=head1 ACKNOWLEDGEMENTS
-
 
 =head1 COPYRIGHT & LICENSE
 

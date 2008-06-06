@@ -14,7 +14,8 @@ WriteMakefile(
 	'POSIX' => 0, 
         'Class::Accessor::Fast'=> 0,
 	'Class::Fields'=> 0,
-	
+        'Test::Pod' => '1.22',
+        'Test::Pod::Coverage' => '1.08',
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'POD-Credentials-*' },

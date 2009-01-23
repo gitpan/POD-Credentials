@@ -3,7 +3,7 @@ package POD::Credentials;
 use warnings;
 use strict;
 use English qw( -no_match_vars);
-use version; our $VERSION =  '0.03';
+use version; our $VERSION =  '0.04';
 
 =head1 NAME
 
@@ -11,7 +11,7 @@ POD::Credentials - POD credentials OO wrapper (see also, author, license, copyri
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =head1 DESCRIPTION
 
@@ -170,7 +170,7 @@ L<http://search.cpan.org/dist/POD-Credentials>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008  Fermi Research Alliance (FRA).
+Copyright 2008-2009  Fermi Research Alliance (FRA).
 
 This program is free software; you can redistribute it and/or modify it
 under the Fermitools license, see L<http://fermitools.fnal.gov/about/terms.html>
